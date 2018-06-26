@@ -19,6 +19,7 @@ Image benennen (fürs Hochladen im Hub)
 docker tag [OPTIONS] IMAGE[:TAG] [REGISTRYHOST/][USERNAME/]NAME[:TAG]
 
 Then docker push using that same tag.
+
 docker push NAME[:TAG]
 
 Shell des Containers öffnen
