@@ -2,7 +2,7 @@
 
 show all containers!
 
-docker ps -a
+<b>docker ps -a</b>
 
 stop all containers:
 
