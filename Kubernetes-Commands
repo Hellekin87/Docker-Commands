@@ -4,7 +4,7 @@ minikube start
 #run a docker image on kubernetes
 kubectl run hello-minikube --image=gcr.io/google_containers/echoserver:1.4 --port=8080
 
-
+#macht das docker image für externe IPs verfügbar
 kubectl expose deployment hello-minikube --type=NodePort
 
 kubectl get pod
