@@ -1,0 +1,20 @@
+## Copies the Content of an SQL-File into the Database 
+ 
+## Pull the mysql:5.6 image
+FROM mysql:5.6
+ 
+## The maintainer name and email
+MAINTAINER mabi <ma.bi@gmail.com>
+
+COPY setup.sql /docker-entrypoint-initdb.d/
+
+# Install requirements
+RUN apt-get update 
+
+#Zieldatenbank
+ENV MYSQL_DATABASE users
+ENV MYSQL_ROOT_PASSWORD 123
+
+ENV MYSQL_USER users_service
+ENV MYSQL_PASSWORD service
+
