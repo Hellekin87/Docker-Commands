@@ -32,4 +32,7 @@ Shell des Containers öffnen
 
 container in image speichern
 
--> docker commit CONTAINER IMAGENAME
+->  docker commit CONTAINER IMAGENAME
+
+Löscht alle Container, Images und Netzwerkadapter
+->  docker system prune -a
