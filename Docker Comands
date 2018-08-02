@@ -36,3 +36,34 @@ container in image speichern
 
 Löscht alle Container, Images und Netzwerkadapter
 ->  docker system prune -a
+
+FROM jenkins/jenkins:lts
+LABEL maintainer="maik.bialas@googlemail.com"
+
+USER root
+
+# set timezone to Europe/Berlin
+RUN echo 'Europe/Berlin' > /etc/timezone && ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+# install AWS cli
+RUN cd /tmp && curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" && unzip awscli-bundle.zip && ./awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+
+# install some tools
+RUN apt-get update && apt-get install -y dnsutils jq vim zip
+
+# install latest docker 
+RUN apt-get install -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && cd /tmp && curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && apt-key fingerprint 0EBFCD88 && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && apt-get update &&  apt-get install -y docker-ce
+
+# install pip & dev deps
+RUN apt-get update && apt-get install -y python-pip libldap2-dev libsasl2-dev && pip install aws-amicleaner future pytest setuptools virtualenv
+
+# create docker group and add jenkins user
+RUN groupadd -g 497 dockersocket && usermod -a -G dockersocket jenkins
+
+# install nodejs 6.x for serverless installation
+RUN cd /tmp && curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh && bash nodesource_setup.sh && apt-get install -y nodejs build-essential && rm -rf /var/lib/apt/lists/*
+
+# install serverless framework
+RUN npm install serverless -g
+
+USER jenkins
