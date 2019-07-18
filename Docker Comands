@@ -36,3 +36,5 @@ container in image speichern
 
 Löscht alle Container, Images und Netzwerkadapter
 ->  docker system prune -a
+
+curl https://github.com/Hellekin87/Golang-Werkzeug/commits/master | grep -o -E 'href="/Hellekin87/Golang-Werkzeug/commit/([^"#]+)"' | head -1 |  sed 's/\"//g' | rev | cut -d "/" -f1 | rev
